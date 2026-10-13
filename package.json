@@ -1,0 +1,49 @@
+{
+  "name": "@zendevvv/vibe-stack",
+  "version": "0.1.0",
+  "description": "Scaffold a model-agnostic AI coding stack: Graphify knowledge graph, Ponytail anti-bloat review, Addy Osmani agent skills, and Impeccable design audits.",
+  "keywords": [
+    "template",
+    "scaffold",
+    "ai",
+    "agent",
+    "skills",
+    "graphify",
+    "ponytail",
+    "impeccable"
+  ],
+  "license": "MIT",
+  "bin": {
+    "vibe-stack": "bin/vibe-stack.js"
+  },
+  "files": [
+    "bin/",
+    ".template/",
+    ".project-truth/",
+    ".agents/",
+    ".cursor/",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZenDevvv/vibe-stack.git"
+  },
+  "homepage": "https://github.com/ZenDevvv/vibe-stack#readme",
+  "bugs": {
+    "url": "https://github.com/ZenDevvv/vibe-stack/issues"
+  },
+  "scripts": {
+    "lint:setup": "bash -n .template/setup.sh",
+    "validate": "bash .template/validate-project-truth.sh"
+  }
+}

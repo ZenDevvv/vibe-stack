@@ -22,6 +22,7 @@ dist/
 build/
 out/
 .next/
+*.tgz
 
 # Operating System & IDE
 .DS_Store
