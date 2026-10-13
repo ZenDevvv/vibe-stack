@@ -25,8 +25,8 @@ if (args.includes("-h") || args.includes("--help")) {
     "Usage: npx @zendevvv/vibe-stack [options]\n\n" +
       "Scaffolds .vibe/ into the current directory, then runs .vibe/setup.sh.\n\n" +
       "  --no-setup   Copy files only; run `bash .vibe/setup.sh` later.\n" +
-      "  --force      Refresh Vibe Stack tooling in an existing scaffold. Your truth,\n" +
-      "               workspace, reports, and app/ files are never overwritten.\n" +
+      "  --force      Refresh the tooling in .vibe/. Your truth, workspace, reports, and\n" +
+      "               files outside .vibe/ are never overwritten.\n" +
       "  --dry-run    Show what would be copied and installed, without changing anything.\n\n" +
       "Other options are passed to setup.sh (see `bash .vibe/setup.sh --help`).",
   );
@@ -45,7 +45,7 @@ if (existsSync(join(TARGET, ".vibe", "setup.sh")) && !FORCE && !DRY_RUN) {
 // rather than replacing it, so a project's own agent instructions survive.
 const SHIMS = new Set(["AGENTS.md", "CLAUDE.md", "GEMINI.md"]);
 // Files the project owns once scaffolded. Created when missing, never overwritten.
-const USER_OWNED = [".vibe/truth/", ".vibe/workspace/", ".vibe/reports/", ".vibe/governance/recommendations.md", "app/", ".gitignore"];
+const USER_OWNED = [".vibe/truth/", ".vibe/workspace/", ".vibe/reports/", ".vibe/governance/recommendations.md"];
 
 function* walk(dir) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
@@ -66,7 +66,9 @@ for (const src of walk(TEMPLATE)) {
   let action;
   if (!existsSync(dest)) action = "created";
   else if (SHIMS.has(rel)) action = readFileSync(dest, "utf8").includes(".vibe/AGENTS.md") ? "kept" : "appended";
-  else if (FORCE && !USER_OWNED.some((p) => rel === p || rel.startsWith(p))) action = "refreshed";
+  // --force refreshes only Vibe Stack's own tooling inside .vibe/, never files elsewhere
+  // (such as .claude/commands/) that the project may have customized.
+  else if (FORCE && rel.startsWith(".vibe/") && !USER_OWNED.some((p) => rel.startsWith(p))) action = "refreshed";
   else action = "kept";
 
   actions[action].push(rel);

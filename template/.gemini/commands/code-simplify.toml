@@ -1,0 +1,7 @@
+description = "Simplify code without changing behavior"
+
+prompt = """
+Use the `code-simplification` and `ponytail` skills for Phase 5 (SIMPLIFY) of `.vibe/AGENTS.md`. Reduce complexity in the target code without removing safety guards or changing behavior (Chesterton's Fence). Run the tests before and after.
+
+{{args}}
+"""

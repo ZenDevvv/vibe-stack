@@ -21,7 +21,7 @@ test("scaffolds .vibe/ and root shims into an empty directory", () => {
   const result = run(dir, "--no-setup");
   assert.equal(result.status, 0, result.stderr);
 
-  assert.deepEqual(readdirSync(dir).sort(), [".gitignore", ".vibe", "AGENTS.md", "CLAUDE.md", "GEMINI.md", "app"]);
+  assert.deepEqual(readdirSync(dir).sort(), [".claude", ".gemini", ".gitignore", ".vibe", "AGENTS.md", "CLAUDE.md", "GEMINI.md", "app"]);
   assert.match(read(dir, "CLAUDE.md"), /@\.vibe\/AGENTS\.md/);
 
   const validate = spawnSync("bash", [join(dir, ".vibe", "validate.sh")], { encoding: "utf8" });
@@ -48,9 +48,10 @@ test("refuses to re-scaffold without --force", () => {
   assert.match(again.stderr, /already contains/);
 });
 
-test("--force refreshes tooling but never project truth or shims", () => {
+test("--force refreshes .vibe/ tooling but never project truth or files outside .vibe/", () => {
   const dir = fresh();
   run(dir, "--no-setup");
+  writeFileSync(join(dir, ".claude", "commands", "review.md"), "my review\n");
   writeFileSync(join(dir, ".vibe", "truth", "project-truth.md"), "accepted truth\n");
   writeFileSync(join(dir, ".vibe", "AGENTS.md"), "stale contract\n");
   const claude = read(dir, "CLAUDE.md");
@@ -59,6 +60,15 @@ test("--force refreshes tooling but never project truth or shims", () => {
   assert.equal(read(dir, ".vibe/truth/project-truth.md"), "accepted truth\n");
   assert.notEqual(read(dir, ".vibe/AGENTS.md"), "stale contract\n");
   assert.equal(read(dir, "CLAUDE.md"), claude);
+  assert.equal(read(dir, ".claude/commands/review.md"), "my review\n");
+});
+
+test("ships the same slash commands for Claude Code and Gemini CLI", () => {
+  const template = join(__dirname, "..", "template");
+  const claude = readdirSync(join(template, ".claude", "commands")).map((f) => f.replace(/\.md$/, ""));
+  const gemini = readdirSync(join(template, ".gemini", "commands")).map((f) => f.replace(/\.toml$/, "").replace(/^planning$/, "plan"));
+  assert.deepEqual(claude.sort(), gemini.sort());
+  for (const c of claude) assert.match(read(template, `.claude/commands/${c}.md`), /\.vibe\//);
 });
 
 test("--dry-run changes nothing", () => {

@@ -87,7 +87,7 @@ DEFINE ──▶ PLAN ──▶ BUILD ──▶ VERIFY ──▶ REVIEW ──�
 - **Quality Gates:** Establish coverage thresholds and performance budgets before writing code (`constraint-driven-development`).
 
 ### Phase 2: PLAN (`/plan`)
-- **Atomic Decomposition:** Break the current spec down into sequential, verifiable tasks (~50–100 lines each) in `.vibe/workspace/plan.md`. Treat both as task-scoped working documents, not canonical product truth.
+- **Atomic Decomposition:** Break the current spec down into sequential, verifiable tasks (~50–100 lines each) in `.vibe/workspace/plan.md`. Treat both as task-scoped working documents, not canonical product truth. Installed skills may default to `SPEC.md`, `tasks/plan.md`, `tasks/todo.md`, or `CONSTRAINTS.md` at the project root; use the `.vibe/workspace/` locations instead.
 - **Dependency Ordering:** Order tasks so foundational types and contracts are established before consumers.
 
 ### Phase 3: BUILD (`/build`)

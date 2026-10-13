@@ -232,4 +232,4 @@ echo "   1. Open your AI coding assistant (Claude Code / Cursor / Codex / Gemini
 echo "   2. Describe what you want to build, e.g. 'I want to build a modern personal portfolio.'"
 echo "      Already have code in app/? Say 'adopt' first."
 echo ""
-echo -e "\033[0;90m💡 Optional shortcuts: /spec (write a spec), /plan (break into steps), /review (quality review)\033[0m"
+echo -e "\033[0;90m💡 Optional shortcuts (Claude Code / Gemini CLI): /spec, /plan, /build, /review, /ship\033[0m"

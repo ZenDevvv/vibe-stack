@@ -1,0 +1,7 @@
+description = "Implement the next planned task test-first"
+
+prompt = """
+Use the `incremental-implementation` and `test-driven-development` skills for Phase 3 (BUILD) of `.vibe/AGENTS.md`. Take the next unchecked task in `.vibe/workspace/plan.md` (if there is no plan, run the planning step first). Write a failing test, make it pass with minimal code under `app/`, refactor with the Ponytail ladder, run the tests, then check the task off. Stop after one task unless the user asked for all of them.
+
+{{args}}
+"""
