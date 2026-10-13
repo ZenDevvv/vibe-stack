@@ -1,15 +1,15 @@
-# 🚀 Model-Agnostic Agent Template
+# 🚀 Vibe Stack
 
-> A turnkey, production-grade starter template for disciplined, high-performance "vibe coding".  
+> A turnkey, production-grade starter stack for disciplined, high-performance "vibe coding".  
 > Built on 5 Core Pillars: **Project Truth**, **Graphify**, **Agents**, **Skills**, and **Ponytail** — supplemented by a dedicated **Frontend Design & Motion Suite** (Impeccable, Taste Skill, Emil Kowalski). 100% model-agnostic.
 
-[![Template Repository](https://img.shields.io/badge/GitHub-Template_Repository-blue?logo=github)](https://github.com/ZenDevvv/model-agnostic-agent-template)
+[![Template Repository](https://img.shields.io/badge/GitHub-Template_Repository-blue?logo=github)](https://github.com/ZenDevvv/vibe-stack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Model Agnostic](https://img.shields.io/badge/Models-100%25_Agnostic-success)](#-100-model-agnostic-free-budget--frontier-models)
 
 ---
 
-## ⚡ The 5 Core Pillars of this Template
+## ⚡ The 5 Core Pillars of Vibe Stack
 
 | Pillar | Powered By | What It Does For Your Project |
 |---|---|---|
@@ -23,7 +23,7 @@
 
 ## 🎨 Frontend & Design Skills (Anti-Slop, Motion & UX Quality)
 
-To complement the core engineering pillars, this template comes pre-configured with a dedicated design suite to eliminate generic "AI slop" and elevate frontend interfaces:
+To complement the core engineering pillars, Vibe Stack comes pre-configured with a dedicated design suite to eliminate generic "AI slop" and elevate frontend interfaces:
 
 | Design Skill | Creator | Focus & Capabilities |
 |---|---|---|
@@ -39,29 +39,54 @@ For projects requiring interactive 3D hero elements, product showcases, or spati
 
 ## 🚀 Quick Start (Starting a New Project)
 
-### 1. Use this Template
+### 1. Scaffold with npx (recommended)
+```bash
+mkdir my-new-project && cd my-new-project
+npx @zendevvv/vibe-stack
+```
+This copies the template into the current directory and runs the interactive setup via `bash`.
+
+**Requirements:** `node` 18+ and `bash`. macOS and Linux ship `bash` already. On Windows, install [Git for Windows](https://gitforwindows.org/) and run from Git Bash, or enable WSL with `wsl --install` — the `vibe-stack` command locates Git Bash automatically and prints install guidance if `bash` is missing.
+
+| Option | Description |
+| --- | --- |
+| `--design-profile <motion\|frontend\|minimal\|custom>` | Skip the profile prompt. |
+| `--dry-run` | Print what would be installed, then exit. |
+| `--keep-origin` | Preserve existing Git history and remotes. |
+| `--reset-git` | Delete Git history and start a fresh repository. |
+| `--commit-initial-setup` | Stage and commit after setup. |
+| `--force` | Reinstall over an existing scaffold (otherwise refused). |
+
+### Releasing a New Version
+
+Push a `v*` tag matching the `version` in `package.json` and the workflow publishes to npm with provenance:
+
+```bash
+npm version 0.2.0 && git push --follow-tags
+```
+
+A mismatched tag fails the run rather than publishing a mismatched package. Existing projects receive nothing automatically — they are snapshots, so they update by re-scaffolding or by pulling `.template/`, `.project-truth/`, and the agent rule files.
+
+### 2. Or use this template
 Click the green **"Use this template"** button on GitHub, or clone it locally:
 ```bash
-git clone https://github.com/ZenDevvv/model-agnostic-agent-template.git my-new-project
+git clone https://github.com/ZenDevvv/vibe-stack.git my-new-project
 cd my-new-project
 ```
 
-### 2. Run the One-Click Setup
+### 3. Run the One-Click Setup
 
-* **On Windows (PowerShell):**
-  ```powershell
-  .\.template\setup.ps1
-  ```
-* **On macOS / Linux / WSL (Bash):**
-  ```bash
-  bash .template/setup.sh
-  ```
+```bash
+bash .template/setup.sh
+```
 
-By default, setup installs the Motion design profile: Impeccable, Taste Skill, and Emil Kowalski motion/mobile skills. Choose frontend, minimal, or custom interactively, or use `-DesignProfile` / `--design-profile`. Add `-DryRun` / `--dry-run` to preview the selected profile without changing the project.
+On Windows, run this from Git Bash or WSL.
 
-When setup detects a clone of this template, an interactive run offers two Git choices: **start fresh** (delete the current Git history and template remote) or **keep existing**. Start fresh is option 1 and is selected by pressing Enter. Non-interactive and CI runs preserve the existing repository unless you explicitly pass `-ResetGit` (PowerShell) or `--reset-git` (Bash). Use `-KeepOrigin` / `--keep-origin` to preserve it explicitly in an interactive run.
+By default, setup installs the Motion design profile: Impeccable, Taste Skill, and Emil Kowalski motion/mobile skills. Choose frontend, minimal, or custom interactively, or pass `--design-profile` to skip the prompt. Add `--dry-run` to preview the selected profile without changing the project.
 
-Setup reports `git status --short` but does not stage or commit files by default. To opt into the initial commit, pass `-CommitInitialSetup` in PowerShell or `--commit-initial-setup` in Bash. The opt-in commit uses `feat: initial project setup with agent skills and tools`.
+When setup detects a clone of Vibe Stack, an interactive run offers two Git choices: **start fresh** (delete the current Git history and template remote) or **keep existing**. Start fresh is option 1 and is selected by pressing Enter. Non-interactive and CI runs preserve the existing repository unless you explicitly pass `--reset-git`. Use `--keep-origin` to preserve it explicitly in an interactive run.
+
+Setup reports `git status --short` but does not stage or commit files by default. To opt into the initial commit, pass `--commit-initial-setup`. The opt-in commit uses `feat: initial project setup with agent skills and tools`.
 
 Setup then automatically:
 
@@ -83,7 +108,7 @@ project truth. Ambiguous findings remain review items; an absent or empty
 
 ## 💻 The Vibe Coding Workflow: Two Distinct Flows
 
-To keep vibe coding fast, predictable, and bloat-free, this template cleanly separates responsibilities between **You** (the Product Director) and the **AI Agent** (the Senior Engineering Staff):
+To keep vibe coding fast, predictable, and bloat-free, Vibe Stack cleanly separates responsibilities between **You** (the Product Director) and the **AI Agent** (the Senior Engineering Staff):
 
 * **The User Flow (You):** You define intent, approve plans, and test the app. You can speak in plain English—no commands to memorize.
 * **The Agent Flow (The AI):** The agent automatically checks architecture, drafts PRDs, plans atomic tasks, and writes test-driven code following the Ponytail simplicity ladder.
@@ -152,7 +177,7 @@ When you ask the AI to build or change something, the agent is governed by [AGEN
 
 ---
 
-## 📂 Template Repository Structure
+## 📂 Vibe Stack Repository Structure
 
 ```
 my-new-project/
@@ -165,6 +190,11 @@ my-new-project/
 │       ├── agent-skills.mdc     # Cursor rule: 6-phase SDLC & TDD
 │       ├── graphify.mdc         # Cursor rule: Architectural context checking
 │       └── design-and-motion.mdc# Cursor rule: Impeccable, Taste dials & Emil motion
+├── .project-truth/               # Canonical truth, workspace, governance & reports
+│   ├── truth/                    # Product, requirements, architecture, design, decisions
+│   ├── workspace/                # Compact agent context and current task
+│   ├── governance/               # Drift, test-enforcement & recommendation rules
+│   └── reports/                  # Temporary evidence and handoffs
 ├── .template/                   # 📦 Template tooling, guides & setup
 │   ├── docs/                    # Deep-dive guides for each pillar
 │   │   ├── tools-for-vibe-coding.md
@@ -176,8 +206,7 @@ my-new-project/
 │   │   ├── taste-skill.md
 │   │   ├── img2threejs.md
 │   │   └── omniroute.md
-│   ├── setup.ps1                # One-click Windows setup script
-│   ├── setup.sh                 # One-click macOS/Linux setup script
+│   ├── setup.sh                 # One-click setup script (macOS / Linux / Windows via Git Bash or WSL)
 ├── AGENTS.md                    # Universal agent directives (Cursor, Codex, Antigravity, etc.)
 ├── app/                          # Generated application code
 ├── CLAUDE.md                    # Claude Code directives and slash commands
@@ -190,12 +219,11 @@ my-new-project/
 ---
 
 The `.project-truth/` directory is the canonical project-truth, workspace, governance, and report layer. It is separate from application code and from `.template/` machinery.
-
 ## 🧠 100% Model-Agnostic (Free, Budget & Frontier Models)
 
-This template **does not lock you into any specific AI vendor or expensive subscription**. It is designed to work with **any model backend**:
+Vibe Stack **does not lock you into any specific AI vendor or expensive subscription**. It is designed to work with **any model backend**:
 
-| Model Tier | Examples | How This Template Supercharges Them |
+| Model Tier | Examples | How Vibe Stack Supercharges Them |
 |---|---|---|
 | **Free & Budget Models** | **Space Bunny**, **Gemini Flash / Flash Lite**, **DeepSeek-V3**, **Qwen 2.5 Coder**, **Llama 3.3**, OpenRouter free tiers | **Solves context and hallucination limits:** Smaller models often hallucinate complex npm/pip APIs or get confused in 50-file codebases. **Ponytail** forces them to write native 1-liners, **Graphify** gives them a compact 71.5x compressed summary, and **Agent Skills** keeps them focused on small, atomic ~100-line tasks. |
 | **Frontier Models** | **Claude 3.7 / 3.8 Sonnet**, **GPT-5 / GPT-4o**, **Gemini Pro** | **Enforces architectural discipline:** Prevents frontier models from over-engineering abstractions or making unchecked assumptions during rapid coding sprints. |
@@ -205,7 +233,7 @@ This template **does not lock you into any specific AI vendor or expensive subsc
 
 ## 🛠️ Supported AI Coding Environments
 
-This template works out of the box with:
+Vibe Stack works out of the box with:
 * **Cursor** (via `.cursor/rules/*.mdc`)
 * **Antigravity CLI & Gemini CLI** (via `GEMINI.md` and `.agents/rules/vibe-stack.md`)
 * **Claude Code** (via `CLAUDE.md` and native skills)
