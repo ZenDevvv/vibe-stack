@@ -50,7 +50,7 @@ This copies the template into the current directory and runs the interactive set
 
 | Option | Description |
 | --- | --- |
-| `--design-profile <motion\|frontend\|minimal\|custom>` | Skip the profile prompt. |
+| `--design-profile <full\|motion\|frontend\|minimal\|custom>` | Skip the profile prompt. |
 | `--dry-run` | Print what would be installed, then exit. |
 | `--keep-origin` | Preserve existing Git history and remotes. |
 | `--reset-git` | Delete Git history and start a fresh repository. |
@@ -82,7 +82,7 @@ bash .template/setup.sh
 
 On Windows, run this from Git Bash or WSL.
 
-By default, setup installs the Motion design profile: Impeccable, Taste Skill, and Emil Kowalski motion/mobile skills. Choose frontend, minimal, or custom interactively, or pass `--design-profile` to skip the prompt. Add `--dry-run` to preview the selected profile without changing the project.
+By default, setup installs the whole stack — every pillar, with no opt-out: Ponytail, Addy Osmani's Agent Skills, Impeccable, Taste Skill, and Emil Kowalski motion/mobile skills, plus Graphify. Pass `--design-profile frontend`, `minimal`, or `custom` to install a narrower design suite, or `--dry-run` to preview without changing the project. Note that Addy Agent Skills and Ponytail are deferred to the Antigravity plugin when `agy` is on your PATH, to avoid duplicate installs.
 
 When setup detects a clone of Vibe Stack, an interactive run offers two Git choices: **start fresh** (delete the current Git history and template remote) or **keep existing**. Start fresh is option 1 and is selected by pressing Enter. Non-interactive and CI runs preserve the existing repository unless you explicitly pass `--reset-git`. Use `--keep-origin` to preserve it explicitly in an interactive run.
 
@@ -92,7 +92,7 @@ Setup then automatically:
 
 - Installs and verifies **Graphify** via Python `pip`.
 - Installs the post-commit git hook to keep the knowledge graph continuously up to date.
-- Installs Addy Osmani's **Agent Skills** into your local agent environment.
+- Installs Addy Osmani's **Agent Skills** and **Ponytail** into your local agent environment.
 - Configures rules for **Cursor**, **Claude Code**, and **Antigravity CLI**.
 
 ### 3. Adopt Initial Application Files (Optional)

@@ -16,7 +16,7 @@ jobs:
         run: bash -n .template/setup.sh
       - name: Validate setup dry runs
         run: |
-          for profile in motion frontend minimal custom; do
+          for profile in full motion frontend minimal custom; do
             bash .template/setup.sh --dry-run --design-profile "$profile" > /dev/null
           done
       - name: Reject machine-specific documentation links

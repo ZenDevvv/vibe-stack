@@ -4,7 +4,7 @@
 
 set -e
 
-DESIGN_PROFILE="motion"
+DESIGN_PROFILE="full"
 DRY_RUN=false
 KEEP_ORIGIN=false
 RESET_GIT=false
@@ -25,7 +25,7 @@ while (($#)); do
 done
 
 case "$DESIGN_PROFILE" in
-    motion|frontend|minimal|custom) ;;
+    full|motion|frontend|minimal|custom) ;;
     *) echo "Invalid design profile: $DESIGN_PROFILE" >&2; exit 2 ;;
 esac
 
@@ -34,24 +34,30 @@ if [[ "$KEEP_ORIGIN" == true && "$RESET_GIT" == true ]]; then
     exit 2
 fi
 
-if [[ -t 0 && -z "${CI:-}" && "$DRY_RUN" == false && "$DESIGN_PROFILE" == "motion" ]]; then
-    echo "Design profile (default: motion):"
-    echo "  [1] motion   - Taste + Emil motion/mobile + Impeccable (recommended)"
-    echo "  [2] frontend - Taste + Impeccable"
-    echo "  [3] minimal  - Impeccable only"
-    echo "  [4] custom   - Choose each design skill"
-    read -r -p "Choose 1-4, or press Enter for motion: " choice
+if [[ -t 0 && -z "${CI:-}" && "$DRY_RUN" == false && "$DESIGN_PROFILE" == "full" ]]; then
+    echo "Design profile (default: full - the whole stack):"
+    echo "  [1] full     - Taste + Emil motion/mobile + Impeccable (recommended)"
+    echo "  [2] motion   - Same as full"
+    echo "  [3] frontend - Taste + Impeccable"
+    echo "  [4] minimal  - Impeccable only"
+    echo "  [5] custom   - Choose each design skill"
+    read -r -p "Choose 1-5, or press Enter for full: " choice
     case "$choice" in
-        2) DESIGN_PROFILE="frontend" ;;
-        3) DESIGN_PROFILE="minimal" ;;
-        4) DESIGN_PROFILE="custom" ;;
+        2) DESIGN_PROFILE="motion" ;;
+        3) DESIGN_PROFILE="frontend" ;;
+        4) DESIGN_PROFILE="minimal" ;;
+        5) DESIGN_PROFILE="custom" ;;
     esac
 fi
 
 INSTALL_IMPECCABLE=true
 INSTALL_TASTE=false
 INSTALL_EMIL=false
-[[ "$DESIGN_PROFILE" == "motion" || "$DESIGN_PROFILE" == "frontend" ]] && INSTALL_TASTE=true
+INSTALL_PONYTAIL=true
+case "$DESIGN_PROFILE" in
+    full) INSTALL_TASTE=true; INSTALL_EMIL=true ;;
+    motion|frontend) INSTALL_TASTE=true ;;
+esac
 [[ "$DESIGN_PROFILE" == "motion" ]] && INSTALL_EMIL=true
 if [[ "$DESIGN_PROFILE" == "custom" && "$DRY_RUN" == false ]]; then
     read -r -p "Install Impeccable quality checks? [Y/n] " answer
@@ -60,6 +66,8 @@ if [[ "$DESIGN_PROFILE" == "custom" && "$DRY_RUN" == false ]]; then
     [[ "$answer" =~ ^(y|yes)$ ]] && INSTALL_TASTE=true
     read -r -p "Install Emil motion/mobile skills? [y/N] " answer
     [[ "$answer" =~ ^(y|yes)$ ]] && INSTALL_EMIL=true
+    read -r -p "Install Ponytail anti-bloat rules? [Y/n] " answer
+    [[ "$answer" =~ ^(n|no)$ ]] && INSTALL_PONYTAIL=false
 fi
 
 if [[ "$DRY_RUN" == true ]]; then
@@ -68,6 +76,7 @@ if [[ "$DRY_RUN" == true ]]; then
     echo "  Impeccable: $INSTALL_IMPECCABLE"
     echo "  Taste Skill: $INSTALL_TASTE"
     echo "  Emil motion/mobile: $INSTALL_EMIL"
+    echo "  Ponytail: $INSTALL_PONYTAIL"
     exit 0
 fi
 # Ensure script executes in the project root
@@ -178,6 +187,18 @@ if command -v npx &>/dev/null; then
         echo "   Installing Taste Skill (visual direction)..."
         if ! npx --yes skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend" --agent '*' --yes; then
             echo "   Taste Skill installation failed; continuing." >&2
+        fi
+    fi
+
+    # Ponytail ships the 7-rung simplicity ladder. It was previously reachable only
+    # through the Antigravity plugin, so every other agent silently lost the pillar.
+    # Antigravity gets it from that plugin instead, matching the Agent Skills handling.
+    if [[ "$INSTALL_PONYTAIL" == true && "$AGY_AVAILABLE" == false ]]; then
+        echo "   Installing Ponytail (anti-bloat simplicity ladder)..."
+        if npx --yes skills add https://github.com/dietrichgebert/ponytail --skill "ponytail" --agent '*' --yes; then
+            echo "   Ponytail installed."
+        else
+            echo "   Ponytail installation failed; continuing." >&2
         fi
     fi
 
