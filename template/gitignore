@@ -36,5 +36,5 @@ Thumbs.db
 **/scripts/bin/
 
 # Task-scoped agent working documents
-spec.md
-plan.md
+.vibe/workspace/spec.md
+.vibe/workspace/plan.md

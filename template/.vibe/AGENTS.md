@@ -38,14 +38,14 @@ Before modifying code or designing cross-module features:
 
 ### Project Truth Protocol (WWG-inspired)
 
-This template uses a lightweight Wiki / Workspace / Governance model inspired by [WWG](https://www.npmjs.com/package/@homedesk/wwg):
+This project uses a lightweight Wiki / Workspace / Governance model inspired by [WWG](https://www.npmjs.com/package/@homedesk/wwg):
 
-- `.project-truth/truth/` is canonical accepted project truth.
-- `.project-truth/workspace/` is compact agent context and current-task state.
-- `.project-truth/governance/` defines drift, verification, and recommendation rules.
-- `.project-truth/reports/` contains temporary evidence and handoffs; it never overrides truth.
+- `.vibe/truth/` is canonical accepted project truth.
+- `.vibe/workspace/` is compact agent context and current-task state.
+- `.vibe/governance/` defines drift, verification, and recommendation rules.
+- `.vibe/reports/` contains temporary evidence and handoffs; it never overrides truth.
 
-Before meaningful work, read `.project-truth/truth/project-truth-summary.md`, `.project-truth/truth/terminology.md`, `.project-truth/workspace/current-task.md`, and `.project-truth/governance/drift-guard.md`. Load the full truth and relevant architecture or decision files when the task changes accepted behavior. Code discoveries must be synchronized back into canonical truth before closeout.
+Before meaningful work, read `.vibe/truth/project-truth-summary.md`, `.vibe/truth/terminology.md`, `.vibe/workspace/current-task.md`, and `.vibe/governance/drift-guard.md`. Load the full truth and relevant architecture or decision files when the task changes accepted behavior. Code discoveries must be synchronized back into canonical truth before closeout.
 
 ### Adopt an Existing `app/` Baseline (`adopt` or `/adopt`)
 
@@ -59,11 +59,11 @@ agent workflow, not a source migration or an instruction to generate code.
    files under `app/`. Respect `.gitignore`, do not read generated, binary,
    credential, dependency, or build-output files, and do not modify application
    source as part of adoption.
-3. Write a dated report in `.project-truth/reports/` containing the file
+3. Write a dated report in `.vibe/reports/` containing the file
    inventory, evidence-backed observations, excluded paths, and explicit
    unknowns or review questions.
 4. Promote only confirmed findings to the relevant files in
-   `.project-truth/truth/` (for example architecture, requirements, design,
+   `.vibe/truth/` (for example architecture, requirements, design,
    terminology, and the summary). Preserve `TBD` for unknown product facts;
    reports and inferred conclusions never override canonical truth silently.
 5. Update workspace context and current-task closeout, validate project-truth
@@ -82,12 +82,12 @@ DEFINE ──▶ PLAN ──▶ BUILD ──▶ VERIFY ──▶ REVIEW ──�
 ```
 
 ### Phase 1: DEFINE (`/spec`)
-- **Specification First:** Draft a task-scoped specification in `spec.md` with explicit objectives, boundary constraints, data schemas, API contracts, and acceptance criteria. Promote durable accepted requirements into `.project-truth/truth/requirements.md`.
+- **Specification First:** Draft a task-scoped specification in `.vibe/workspace/spec.md` with explicit objectives, boundary constraints, data schemas, API contracts, and acceptance criteria. Promote durable accepted requirements into `.vibe/truth/requirements.md`.
 - **Clarify Ambiguities:** If requirements are ambiguous, invoke `interview-me` to ask targeted questions one at a time until 95% confidence is reached. Never guess critical requirements.
 - **Quality Gates:** Establish coverage thresholds and performance budgets before writing code (`constraint-driven-development`).
 
 ### Phase 2: PLAN (`/plan`)
-- **Atomic Decomposition:** Break the current `spec.md` down into sequential, verifiable tasks (~50–100 lines each) in `plan.md`. Treat both as task-scoped working documents, not canonical product truth.
+- **Atomic Decomposition:** Break the current spec down into sequential, verifiable tasks (~50–100 lines each) in `.vibe/workspace/plan.md`. Treat both as task-scoped working documents, not canonical product truth.
 - **Dependency Ordering:** Order tasks so foundational types and contracts are established before consumers.
 
 ### Phase 3: BUILD (`/build`)
@@ -120,11 +120,11 @@ DEFINE ──▶ PLAN ──▶ BUILD ──▶ VERIFY ──▶ REVIEW ──�
 
 ## 4. Frontend Design, Anti-Slop & Motion Standards
 
-Apply the Design Suite (`Impeccable` + `Taste Skill` + `Emil Kowalski`) to produce high-end, human-crafted interfaces:
+This section applies only when the project has a user interface; skip it for CLIs, services, and libraries. Apply the Design Suite (`Impeccable` + `Taste Skill` + `Emil Kowalski`) to produce high-end, human-crafted interfaces:
 
 ### Visual Quality & Design Tokens (Impeccable)
-- **Project Truth:** Maintain durable product principles, UX direction, and design tokens in the relevant `.project-truth/truth/` documents.
-- **Deterministic Auditing:** Run `/impeccable audit` for 61 zero-token automated checks on contrast, typography hierarchy, and spacing rhythm.
+- **Project Truth:** Maintain durable product principles, UX direction, and design tokens in the relevant `.vibe/truth/` documents.
+- **Deterministic Auditing:** Run `/impeccable audit` for zero-token automated checks on contrast, typography hierarchy, and spacing rhythm.
 - **Strict Anti-Patterns:**
   - ❌ Never use generic fonts (Inter, Arial, system defaults) without explicit brand justification.
   - ❌ Never use pure black (`#000000`) or dead neutral gray; subtly tint all neutrals with brand color temperature.
@@ -155,11 +155,11 @@ Tune layout parameters to match the target aesthetic:
 ### Design Precedence & Conflict Resolution
 When styling, animating, or reviewing frontend components, enforce this priority hierarchy to eliminate tool conflicts:
 1. **Art Direction & Personality:** `design-taste-frontend` (Taste Skill) sets the primary visual direction, color palettes, and typographic scales. Adopt **one** aesthetic persona per project.
-2. **Motion, Physics & Mobile:** `animate` and `mobile-native` (Emil Kowalski) strictly govern all transitions, cubic-bezier curves (150–300ms), and touch ergonomics. Favor native CSS transitions and Framer Motion over external heavy animation libraries (no GSAP unless explicitly requested).
-3. **Quality & Contrast Gatekeeper:** `impeccable audit` runs 61 deterministic checks (WCAG contrast, no pure `#000000`, no card-nesting) prior to shipping without LLM token cost.
+2. **Motion, Physics & Mobile:** `animate` and `mobile-native` (Emil Kowalski) strictly govern all transitions, cubic-bezier curves (150–300ms), and touch ergonomics. Favor native CSS transitions; use an animation library only if it is already installed or explicitly requested (Ponytail rung 5).
+3. **Quality & Contrast Gatekeeper:** `impeccable audit` runs deterministic checks (WCAG contrast, no pure `#000000`, no card-nesting) prior to shipping without LLM token cost.
 4. **Accessibility & Semantics:** `frontend-ui-engineering` enforces semantic HTML tags, keyboard navigation, and ARIA attributes.
 
-### Procedural 3D UI & Spatial Elements (img2threejs)
+### Procedural 3D UI & Spatial Elements (img2threejs, optional — not installed by setup)
 - When 3D hero elements or product showcases are needed, reconstruct 2D references as pure TypeScript / Three.js code (`THREE.Group`).
 - Do not check in heavy `.glb`/`.obj` 3D binaries when procedural primitives and shaders suffice. Expose clean pivots, raycast colliders, and `userData.tick` hooks.
 
@@ -167,7 +167,7 @@ When styling, animating, or reviewing frontend components, enforce this priority
 
 ## 5. Skills Operational Reference Matrix
 
-Invoke installed skills from `.agents/skills` / `agent/skills` based on the operational need:
+Invoke these skills (installed by `.vibe/setup.sh` into each agent's skills directory) based on the operational need:
 
 | Category | Skill | When & How to Use |
 |---|---|---|
@@ -175,7 +175,7 @@ Invoke installed skills from `.agents/skills` / `agent/skills` based on the oper
 | | `idea-refine` | Refine raw concepts with divergent/convergent stress testing. |
 | **Requirements & Planning**| `spec-driven-development` | Generate lightweight PRDs and capability maps prior to coding. |
 | | `planning-and-task-breakdown` | Decompose specs into atomic tasks with strict dependency trees. |
-| | `constraint-driven-development`| Define and enforce quality bars (coverage, bundle size, latency) in `CONSTRAINTS.md`. |
+| | `constraint-driven-development`| Define and enforce quality bars (coverage, bundle size, latency); record accepted ones in `.vibe/truth/requirements.md`. |
 | **Simplicity & Anti-Bloat** | `ponytail` | Enforce 7-rung simplicity ladder and native platform solutions. |
 | | `ponytail-review` | Inspect code diffs specifically for over-engineering and bloat. |
 | | `ponytail-audit` | Audit repository for dead code, unneeded dependencies, and bloat. |
@@ -191,7 +191,7 @@ Invoke installed skills from `.agents/skills` / `agent/skills` based on the oper
 | **Performance & Ops** | `performance-optimization` | Profile and optimize Core Web Vitals, render loops, and network waterfalls. |
 | | `observability-and-instrumentation` | Add structured logging, traces, metrics, and failure diagnostics. |
 | **Design & Anti-Slop** | `design-taste-frontend` | Primary anti-slop creative direction, bespoke palettes, and typographic scale. |
-| | `impeccable` | Run 61-rule deterministic audits (`/impeccable audit`), extract design guidance into `.project-truth/truth/design.md`, and reduce clutter. |
+| | `impeccable` | Run deterministic audits (`/impeccable audit`), extract design guidance into `.vibe/truth/design.md`, and reduce clutter. |
 | | `high-end-visual-design` | *(Optional Persona)* Agency-grade typography, subtle palette tints, and luxury styling. |
 | | `minimalist-ui` | *(Optional Persona)* Editorial layouts, clean typographic hierarchy, and warm monochromes. |
 | | `industrial-brutalist-ui` | *(Optional Persona)* High-contrast utilitarian grids, monospace data views, raw aesthetics. |
@@ -208,7 +208,7 @@ Invoke installed skills from `.agents/skills` / `agent/skills` based on the oper
 
 ## 6. Output & Code Generation Standards
 
-1. **Application Location:** Write all generated application source code under `app/`. Keep repository tooling, agent instructions, project-truth records, and task-scoped documents in their established top-level locations.
+1. **Application Location:** Write all generated application source code under `app/`. Keep agent instructions, project truth, task-scoped documents, and reports in `.vibe/`; do not add agent files at the project root.
 2. **Full Output Enforcement:** Never output placeholders, truncation comments (e.g. `// rest of implementation goes here`), or stubbed implementations. Produce complete, runnable code or precise targeted diffs.
 3. **Context Integrity:** Respect existing project architecture, directory structures, and naming conventions.
 4. **Fail-Fast Error Handling:** Catch and handle expected errors explicitly. Never swallow exceptions or leave empty catch blocks.

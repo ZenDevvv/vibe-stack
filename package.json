@@ -18,15 +18,7 @@
   },
   "files": [
     "bin/",
-    ".template/",
-    ".project-truth/",
-    ".agents/",
-    ".cursor/",
-    "AGENTS.md",
-    "CLAUDE.md",
-    "GEMINI.md",
-    "LICENSE",
-    "README.md"
+    "template/"
   ],
   "engines": {
     "node": ">=18"
@@ -43,7 +35,7 @@
     "url": "https://github.com/ZenDevvv/vibe-stack/issues"
   },
   "scripts": {
-    "lint:setup": "bash -n .template/setup.sh",
-    "validate": "bash .template/validate-project-truth.sh"
+    "test": "node --test test/",
+    "lint:setup": "bash -n template/.vibe/setup.sh template/.vibe/validate.sh"
   }
 }

@@ -4,11 +4,11 @@ Describe the current implemented architecture and its important boundaries here.
 
 ## System overview
 
-- `app/` contains all generated application source code. `.project-truth/reports/` holds derived adoption evidence, while `.project-truth/truth/` holds only accepted findings promoted from that evidence.
+- `app/` contains all application source code. Agent tooling and project truth live in `.vibe/`.
 
 ## Modules and responsibilities
 
-- The `adopt` agent workflow inventories the initial `app/` baseline and routes confirmed findings to the relevant project-truth documents.
+- TBD
 
 ## Data and integrations
 

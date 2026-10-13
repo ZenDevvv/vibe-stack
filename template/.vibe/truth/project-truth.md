@@ -44,6 +44,6 @@ It describes what the project is, who it serves, what is in scope, and which bou
 
 ## Update rules
 
-Update this file when product identity, users, scope, terminology, architecture, safety, or production-readiness expectations change. Record historical rationale in `decisions/` and keep temporary discoveries in `.project-truth/reports/`.
+Update this file when product identity, users, scope, terminology, architecture, safety, or production-readiness expectations change. Record historical rationale in `decisions/` and keep temporary discoveries in `.vibe/reports/`.
 
 Unknowns must remain explicit as `TBD`; agents must not invent project truth.

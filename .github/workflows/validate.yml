@@ -12,17 +12,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
       - name: Validate Bash syntax
-        run: bash -n .template/setup.sh
+        run: npm run lint:setup
       - name: Validate setup dry runs
         run: |
-          for profile in full motion frontend minimal custom; do
-            bash .template/setup.sh --dry-run --design-profile "$profile" > /dev/null
+          for profile in full frontend minimal custom; do
+            bash template/.vibe/setup.sh --dry-run --design-profile "$profile" > /dev/null
           done
       - name: Reject machine-specific documentation links
         run: |
-          matches=$(grep -rEl --include='*.md' --include='*.mdc' \
-            'file:///|C:/Users/|c:/Users/' . || true)
+          matches=$(grep -rEl --include='*.md' 'file:///|C:/Users/|c:/Users/' . || true)
           if [ -n "$matches" ]; then echo "$matches"; exit 1; fi
-      - name: Validate project-truth structure
-        run: bash .template/validate-project-truth.sh
+      - name: Scaffold tests
+        run: npm test
+      - name: Package contents
+        run: |
+          npm pack --dry-run --json | node -e '
+            const files = JSON.parse(require("fs").readFileSync(0))[0].files.map((f) => f.path);
+            for (const f of ["template/.vibe/AGENTS.md", "template/gitignore", "template/app/.gitkeep"])
+              if (!files.includes(f)) { console.error("missing from package:", f); process.exit(1); }'

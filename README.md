@@ -3,7 +3,7 @@
 > A turnkey, production-grade starter stack for disciplined, high-performance "vibe coding".  
 > Built on 5 Core Pillars: **Project Truth**, **Graphify**, **Agents**, **Skills**, and **Ponytail** — supplemented by a dedicated **Frontend Design & Motion Suite** (Impeccable, Taste Skill, Emil Kowalski). 100% model-agnostic.
 
-[![Template Repository](https://img.shields.io/badge/GitHub-Template_Repository-blue?logo=github)](https://github.com/ZenDevvv/vibe-stack)
+[![npm](https://img.shields.io/npm/v/@zendevvv/vibe-stack?logo=npm)](https://www.npmjs.com/package/@zendevvv/vibe-stack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Model Agnostic](https://img.shields.io/badge/Models-100%25_Agnostic-success)](#-100-model-agnostic-free-budget--frontier-models)
 
@@ -13,11 +13,11 @@
 
 | Pillar | Powered By | What It Does For Your Project |
 |---|---|---|
-| **1. Structural Awareness** | [Graphify](https://github.com/Graphify-Labs/graphify) | Ingests code (AST across 13+ languages), docs, and diagrams into a knowledge graph. Saves **up to 71.5x tokens** per query vs reading raw files and identifies architectural "God nodes". |
-| **2. Project Truth** | [WWG-inspired `.project-truth/` layer](https://www.npmjs.com/package/@homedesk/wwg) | Separates canonical truth, compact agent workspace context, and governance/drift checks without importing WWG's full scaffold. |
-| **2. Specialist Personas** | **Agents** ([addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)) | 4 pre-configured review personas: Senior Staff Code Reviewer, QA Test Engineer, Security Auditor, and Web Performance Auditor. |
-| **3. Engineering Lifecycle** | **Skills** ([addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)) | Addy Osmani's 25 production skills. Enforces Red-Green-Refactor TDD, PRDs before code (`/spec`), atomic task planning (`/plan`), and atomic ~100-line changes (`/build auto`). |
-| **4. Anti-Bloat Restraint** | [Ponytail](https://github.com/dietrichgebert/ponytail) | The "laziest senior dev in the room." Enforces the 7-rung ladder (YAGNI → Native → 1-liner). Slashes generated lines of code by **~54%** on average while maintaining 100% safety. |
+| **1. Structural Awareness** | [Graphify](https://github.com/Graphify-Labs/graphify) | Ingests code (AST across 13+ languages), docs, and diagrams into a knowledge graph. Graphify reports **up to 71.5x fewer tokens** per query than reading raw files and identifies architectural "God nodes". |
+| **2. Project Truth** | [WWG-inspired `.vibe/` truth layer](https://www.npmjs.com/package/@homedesk/wwg) | Separates canonical truth, compact agent workspace context, and governance/drift checks without importing WWG's full scaffold. |
+| **3. Specialist Personas** | **Agents** ([addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)) | 4 pre-configured review personas: Senior Staff Code Reviewer, QA Test Engineer, Security Auditor, and Web Performance Auditor. |
+| **4. Engineering Lifecycle** | **Skills** ([addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)) | Addy Osmani's 25 production skills. Enforces Red-Green-Refactor TDD, PRDs before code (`/spec`), atomic task planning (`/plan`), and atomic ~100-line changes (`/build auto`). |
+| **5. Anti-Bloat Restraint** | [Ponytail](https://github.com/dietrichgebert/ponytail) | The "laziest senior dev in the room." Enforces the 7-rung ladder (YAGNI → Native → 1-liner). Ponytail's benchmarks report **~54%** fewer generated lines while keeping safety guards. |
 
 ---
 
@@ -27,82 +27,55 @@ To complement the core engineering pillars, Vibe Stack comes pre-configured with
 
 | Design Skill | Creator | Focus & Capabilities |
 |---|---|---|
-| **[Impeccable](https://github.com/pbakaus/impeccable)** | Paul Bakaus (ex-Google) | **Design Systems & UX Quality:** Records accepted product and design truth in `.project-truth/truth/` (`/impeccable init`), provides 24 UX commands (`/impeccable craft`, `audit`, `bolder`, `quieter`, `polish`), and runs **61 zero-token deterministic rules** auditing contrast and hierarchy. |
+| **[Impeccable](https://github.com/pbakaus/impeccable)** | Paul Bakaus (ex-Google) | **Design Systems & UX Quality:** Records accepted product and design truth in `.vibe/truth/` (`/impeccable init`), provides 24 UX commands (`/impeccable craft`, `audit`, `bolder`, `quieter`, `polish`), and runs **61 zero-token deterministic rules** auditing contrast and hierarchy. |
 | **[Taste Skill](https://github.com/leonxlnx/taste-skill)** | Leon Lin (`leonxlnx`) | **Anti-Slop Art Direction:** 3 tunable 1–10 dials (`DESIGN_VARIANCE`, `MOTION_INTENSITY`, `VISUAL_DENSITY`) and distinct visual genres (Luxury Soft, Minimalist Editorial, Brutalist) that stop models from producing bland cookie-cutter templates. |
 | **[Emil Kowalski's Skills](https://github.com/emilkowalski/skills)** | Emil Kowalski (Linear / Vercel) | **Motion Physics & Mobile Polish:** Mathematically correct cubic-bezier deceleration curves, Apple WWDC fluid physics, and mobile-native touch fixes (`100dvh`, tap delay elimination, safe-area padding). |
 
 ### 🧊 Optional Creative & 3D Extensions
 For projects requiring interactive 3D hero elements, product showcases, or spatial UI without asset bloat:
-* **[img2threejs](https://github.com/img2threejs/img2threejs)** — **Reconstruction-by-Code:** Reconstructs 2D reference images directly into pure TypeScript / Three.js code (`THREE.Group`) using an 8-stage quality-gated pipeline. Zero `.glb`/`.obj` file bloat; 100% diffable procedural code with pivots and interaction hooks. See [`.template/docs/img2threejs.md`](.template/docs/img2threejs.md).
+* **[img2threejs](https://github.com/img2threejs/img2threejs)** — **Reconstruction-by-Code:** Reconstructs 2D reference images directly into pure TypeScript / Three.js code (`THREE.Group`) using an 8-stage quality-gated pipeline. Zero `.glb`/`.obj` file bloat; 100% diffable procedural code with pivots and interaction hooks. See [`docs/img2threejs.md`](docs/img2threejs.md).
 
 ---
 
-## 🚀 Quick Start (Starting a New Project)
+## 🚀 Quick Start
 
-### 1. Scaffold with npx (recommended)
 ```bash
 mkdir my-new-project && cd my-new-project
 npx @zendevvv/vibe-stack
 ```
-This copies the template into the current directory and runs the interactive setup via `bash`.
 
-**Requirements:** `node` 18+ and `bash`. macOS and Linux ship `bash` already. On Windows, install [Git for Windows](https://gitforwindows.org/) and run from Git Bash, or enable WSL with `wsl --install` — the `vibe-stack` command locates Git Bash automatically and prints install guidance if `bash` is missing.
+This copies a single `.vibe/` folder (plus three one-line pointer files) into the current directory and runs the interactive setup via `bash`. It also works in an existing project: files you already have are never overwritten, and an existing `AGENTS.md`, `CLAUDE.md`, or `GEMINI.md` gets the pointer appended instead of replaced.
+
+**Requirements:** `node` 18+ and `bash`. macOS and Linux ship `bash` already. On Windows, install [Git for Windows](https://gitforwindows.org/) and run from Git Bash, or enable WSL with `wsl --install` — the `vibe-stack` command locates Git Bash automatically and prints install guidance if `bash` is missing. Graphify installs through [`uv`](https://docs.astral.sh/uv/) or `pipx` when available (falling back to `pip --user`), so it works on PEP 668 systems such as Arch, Debian 12+, and Homebrew Python.
 
 | Option | Description |
 | --- | --- |
-| `--design-profile <full\|motion\|frontend\|minimal\|custom>` | Skip the profile prompt. |
-| `--dry-run` | Print what would be installed, then exit. |
-| `--keep-origin` | Preserve existing Git history and remotes. |
-| `--reset-git` | Delete Git history and start a fresh repository. |
+| `--design-profile <full\|frontend\|minimal\|custom>` | Skip the profile prompt. `full` (default) installs the whole design suite. |
+| `--dry-run` | Show what would be copied and installed, without changing anything. |
+| `--no-setup` | Copy files only; run `bash .vibe/setup.sh` later. |
 | `--commit-initial-setup` | Stage and commit after setup. |
-| `--force` | Reinstall over an existing scaffold (otherwise refused). |
+| `--force` | Refresh Vibe Stack tooling in an existing scaffold. Your `.vibe/truth/`, `.vibe/workspace/`, `.vibe/reports/`, and `app/` are never overwritten. |
 
-### Releasing a New Version
+Setup installs Graphify (plus its post-commit hook), Addy Osmani's Agent Skills, Ponytail, Impeccable, Taste Skill, and Emil Kowalski's motion/mobile skills. Tool versions are pinned in `.vibe/setup.sh`, and the skills CLI records the exact skill sources in `skills-lock.json` — commit it. Addy Agent Skills and Ponytail are deferred to the Antigravity plugin when `agy` is on your PATH, to avoid duplicate installs. If no Git repository exists, setup initializes one; it never deletes Git history and never commits unless you pass `--commit-initial-setup`.
 
-Push a `v*` tag matching the `version` in `package.json` and the workflow publishes to npm with provenance:
-
-```bash
-npm version 0.2.0 && git push --follow-tags
-```
-
-A mismatched tag fails the run rather than publishing a mismatched package. Existing projects receive nothing automatically — they are snapshots, so they update by re-scaffolding or by pulling `.template/`, `.project-truth/`, and the agent rule files.
-
-### 2. Or use this template
-Click the green **"Use this template"** button on GitHub, or clone it locally:
-```bash
-git clone https://github.com/ZenDevvv/vibe-stack.git my-new-project
-cd my-new-project
-```
-
-### 3. Run the One-Click Setup
-
-```bash
-bash .template/setup.sh
-```
-
-On Windows, run this from Git Bash or WSL.
-
-By default, setup installs the whole stack — every pillar, with no opt-out: Ponytail, Addy Osmani's Agent Skills, Impeccable, Taste Skill, and Emil Kowalski motion/mobile skills, plus Graphify. Pass `--design-profile frontend`, `minimal`, or `custom` to install a narrower design suite, or `--dry-run` to preview without changing the project. Note that Addy Agent Skills and Ponytail are deferred to the Antigravity plugin when `agy` is on your PATH, to avoid duplicate installs.
-
-When setup detects a clone of Vibe Stack, an interactive run offers two Git choices: **start fresh** (delete the current Git history and template remote) or **keep existing**. Start fresh is option 1 and is selected by pressing Enter. Non-interactive and CI runs preserve the existing repository unless you explicitly pass `--reset-git`. Use `--keep-origin` to preserve it explicitly in an interactive run.
-
-Setup reports `git status --short` but does not stage or commit files by default. To opt into the initial commit, pass `--commit-initial-setup`. The opt-in commit uses `feat: initial project setup with agent skills and tools`.
-
-Setup then automatically:
-
-- Installs and verifies **Graphify** via Python `pip`.
-- Installs the post-commit git hook to keep the knowledge graph continuously up to date.
-- Installs Addy Osmani's **Agent Skills** and **Ponytail** into your local agent environment.
-- Configures rules for **Cursor**, **Claude Code**, and **Antigravity CLI**.
-
-### 3. Adopt Initial Application Files (Optional)
+### Adopt Initial Application Files (Optional)
 
 If you have initial source, configuration, or documentation files in `app/`
 after setup, say `adopt` (or `/adopt`) to your coding agent. It will read the
 relevant baseline files, preserve them, create an evidence report in
-`.project-truth/reports/`, and synchronize confirmed facts into canonical
+`.vibe/reports/`, and synchronize confirmed facts into canonical
 project truth. Ambiguous findings remain review items; an absent or empty
 `app/` is reported rather than treated as a successful adoption.
+
+### Releasing a New Version (maintainers)
+
+Push a `v*` tag matching the `version` in `package.json` and the workflow publishes to npm with provenance:
+
+```bash
+npm test && npm version minor && git push --follow-tags
+```
+
+A mismatched tag fails the run rather than publishing a mismatched package. Existing projects receive nothing automatically — they are snapshots, so they update with `npx @zendevvv/vibe-stack --force`.
 
 ---
 
@@ -144,24 +117,24 @@ You do **not** need to memorize slash commands. You can simply chat in natural l
 
 ### 🤖 Flow 2: The Agent Flow (What the AGENT Executes Behind the Scenes)
 
-When you ask the AI to build or change something, the agent is governed by [AGENTS.md](AGENTS.md) and [.cursor/rules/](.cursor/rules/) to execute this disciplined 6-phase engineering lifecycle:
+When you ask the AI to build or change something, the agent is governed by [`.vibe/AGENTS.md`](template/.vibe/AGENTS.md) to execute this disciplined 6-phase engineering lifecycle:
 
 #### 1. Architectural Orientation (`graphify`)
 * Before touching multi-module code, the agent inspects `graphify-out/GRAPH_REPORT.md` or queries the AST graph (e.g. `graphify query "What connects module X to service Y?"`).
 * It identifies "God nodes" and cross-module dependencies to calculate the blast radius before modifying anything.
 
 #### 2. Project Truth (WWG-inspired)
-* `.project-truth/truth/` stores canonical product, requirements, terminology, architecture, decisions, principles, and design truth.
-* `.project-truth/workspace/` stores compact context, the current task, and agent handoff guidance.
-* `.project-truth/governance/` stores drift, test-enforcement, and recommendation rules.
+* `.vibe/truth/` stores canonical product, requirements, terminology, architecture, decisions, principles, and design truth.
+* `.vibe/workspace/` stores compact context, the current task, and agent handoff guidance.
+* `.vibe/governance/` stores drift, test-enforcement, and recommendation rules.
 * Reports and Graphify output are evidence and derived context; they do not silently override canonical truth.
 
 #### 3. Requirements Definition (`/spec`)
-* The agent drafts a lightweight Product Requirements Document (`spec.md`) with explicit constraints, API contracts, and acceptance criteria.
+* The agent drafts a lightweight Product Requirements Document (`.vibe/workspace/spec.md`) with explicit constraints, API contracts, and acceptance criteria.
 * If your prompt was ambiguous, it triggers `interview-me` to clarify requirements one question at a time.
 
 #### 4. Task Breakdown (`/plan`)
-* Decomposes the spec into small, verifiable implementation steps (~100 lines each) with strict dependency ordering in `plan.md`.
+* Decomposes the spec into small, verifiable implementation steps (~100 lines each) with strict dependency ordering in `.vibe/workspace/plan.md`.
 
 #### 5. Autonomous TDD Implementation (`/build` / `/build auto`)
 * Implements tasks one vertical slice at a time using strict Red-Green-Refactor Test-Driven Development (TDD).
@@ -177,48 +150,29 @@ When you ask the AI to build or change something, the agent is governed by [AGEN
 
 ---
 
-## 📂 Vibe Stack Repository Structure
+## 📂 What Gets Added to Your Project
 
 ```
 my-new-project/
-├── .agents/
-│   └── rules/
-│       └── vibe-stack.md        # Antigravity CLI / Gemini CLI workspace rules
-├── .cursor/
-│   └── rules/
-│       ├── ponytail.mdc         # Cursor rule: YAGNI & 7-rung ladder
-│       ├── agent-skills.mdc     # Cursor rule: 6-phase SDLC & TDD
-│       ├── graphify.mdc         # Cursor rule: Architectural context checking
-│       └── design-and-motion.mdc# Cursor rule: Impeccable, Taste dials & Emil motion
-├── .project-truth/               # Canonical truth, workspace, governance & reports
-│   ├── truth/                    # Product, requirements, architecture, design, decisions
-│   ├── workspace/                # Compact agent context and current task
-│   ├── governance/               # Drift, test-enforcement & recommendation rules
-│   └── reports/                  # Temporary evidence and handoffs
-├── .template/                   # 📦 Template tooling, guides & setup
-│   ├── docs/                    # Deep-dive guides for each pillar
-│   │   ├── tools-for-vibe-coding.md
-│   │   ├── ponytail.md
-│   │   ├── graphify.md
-│   │   ├── agent-skills.md
-│   │   ├── emil-skills.md
-│   │   ├── impeccable.md
-│   │   ├── taste-skill.md
-│   │   ├── img2threejs.md
-│   │   └── omniroute.md
-│   ├── setup.sh                 # One-click setup script (macOS / Linux / Windows via Git Bash or WSL)
-├── AGENTS.md                    # Universal agent directives (Cursor, Codex, Antigravity, etc.)
-├── app/                          # Generated application code
-├── CLAUDE.md                    # Claude Code directives and slash commands
-├── GEMINI.md                    # Google Gemini & Antigravity IDE directives
-├── .gitignore                   # Configured for Node, Python, and Graphify caches
-├── LICENSE                      # MIT License
-└── README.md                    # ⭐ Comprehensive template guide
+├── .vibe/                    # Everything Vibe Stack adds
+│   ├── AGENTS.md             # The operating contract every agent follows
+│   ├── truth/                # Canonical product, requirements, architecture, design, decisions
+│   ├── workspace/            # Compact agent context, current task, spec.md / plan.md
+│   ├── governance/           # Drift, test-enforcement & recommendation rules
+│   ├── reports/              # Temporary evidence and handoffs
+│   ├── setup.sh              # Installs the skills and tools
+│   └── validate.sh           # Checks the project-truth structure
+├── app/                      # Your application code
+├── AGENTS.md                 # One-line pointer → .vibe/AGENTS.md (Codex, Cursor, Copilot, …)
+├── CLAUDE.md                 # @.vibe/AGENTS.md import (Claude Code)
+├── GEMINI.md                 # @.vibe/AGENTS.md import (Gemini CLI, Antigravity)
+└── .gitignore                # Only created if you don't already have one
 ```
+
+The pointer files exist because each agent only auto-loads instructions from its own fixed filename at the project root. Skill installers and Graphify add their own folders (for example `.claude/skills/`, `.agents/skills/`, `graphify-out/`); those locations are chosen by each tool. Deep-dive guides for each pillar live in this repository's [`docs/`](docs/) folder rather than in your project.
 
 ---
 
-The `.project-truth/` directory is the canonical project-truth, workspace, governance, and report layer. It is separate from application code and from `.template/` machinery.
 ## 🧠 100% Model-Agnostic (Free, Budget & Frontier Models)
 
 Vibe Stack **does not lock you into any specific AI vendor or expensive subscription**. It is designed to work with **any model backend**:
@@ -234,9 +188,6 @@ Vibe Stack **does not lock you into any specific AI vendor or expensive subscrip
 ## 🛠️ Supported AI Coding Environments
 
 Vibe Stack works out of the box with:
-* **Cursor** (via `.cursor/rules/*.mdc`)
-* **Antigravity CLI & Gemini CLI** (via `GEMINI.md` and `.agents/rules/vibe-stack.md`)
-* **Claude Code** (via `CLAUDE.md` and native skills)
-* **Codex** (via `AGENTS.md`)
-* **Cline / Roo Code** (via `AGENTS.md` and OpenAI-compatible endpoints)
-* **GitHub Copilot / Windsurf / OpenCode / Aider** (via `AGENTS.md`)
+* **Claude Code** (via `CLAUDE.md`, which imports `.vibe/AGENTS.md`)
+* **Gemini CLI & Antigravity** (via `GEMINI.md`, which imports `.vibe/AGENTS.md`)
+* **Cursor, Codex, GitHub Copilot, Windsurf, OpenCode, Aider, Cline / Roo Code** (via `AGENTS.md`)

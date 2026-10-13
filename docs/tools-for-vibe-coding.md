@@ -305,7 +305,7 @@ Emil packages years of Linear and Vercel design engineering into 13 high-impact 
 ### 📌 Overview
 AI models trained on the same SaaS landing pages default to predictable visual clichés: Inter font for everything, purple-to-blue gradients, cards nested inside cards, gray text on colored backgrounds, and rounded icon badges above every title.
 
-**Impeccable** establishes durable product and design truth in `.project-truth/truth/` (`/impeccable init`) and runs **61 deterministic detector rules** that catch accessibility, hierarchy, and contrast errors **with zero LLM token cost**.
+**Impeccable** establishes durable product and design truth in `.vibe/truth/` (`/impeccable init`) and runs **61 deterministic detector rules** that catch accessibility, hierarchy, and contrast errors **with zero LLM token cost**.
 
 ### 🎯 Key Capabilities
 * **61 Zero-Token Detector Rules:** Deterministically checks WCAG AA contrast, modular typographic scales, spacing rhythm, and card nesting without API fees.
@@ -409,6 +409,6 @@ When combined, these tools form an end-to-end powerhouse pipeline where cost, sp
 | **Graphify** | Knowledge Graph | [graphify.md](graphify.md) | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | Deep codebase understanding, AST analysis, multimodal architecture maps |
 | **Agent Skills** | Engineering Workflow | [agent-skills.md](agent-skills.md) | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | 25 production-grade SDLC skills (Spec, Plan, TDD, Review, Ship) by Addy Osmani |
 | **Emil's Skills** | Motion & Polish | [emil-skills.md](emil-skills.md) | [emilkowalski/skills](https://github.com/emilkowalski/skills) | Cubic-bezier curves, Apple fluid motion, mobile-native bug fixes |
-| **Impeccable** | Design Quality & System | [impeccable.md](impeccable.md) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Project truth in `.project-truth/truth/`, 24 UX commands, 61 zero-token quality rules |
+| **Impeccable** | Design Quality & System | [impeccable.md](impeccable.md) | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Project truth in `.vibe/truth/`, 24 UX commands, 61 zero-token quality rules |
 | **Taste Skill** | Aesthetic Art Direction | [taste-skill.md](taste-skill.md) | [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) | 1–10 design dials (variance/motion/density), anti-slop visual personas |
 | **img2threejs** | Procedural 3D *(Optional)* | [img2threejs.md](img2threejs.md) | [img2threejs/img2threejs](https://github.com/img2threejs/img2threejs) | Reconstruction-by-code: 2D image to pure TypeScript/Three.js 3D models |

@@ -4,9 +4,9 @@ Project drift is a mismatch between accepted truth, requirements, code, tests, g
 
 ## Required closeout
 
-- Accepted behavior is represented in `.project-truth/truth/`.
+- Accepted behavior is represented in `.vibe/truth/`.
 - Code and tests agree with the relevant requirements.
-- `.project-truth/workspace/current-task.md` reflects the completed task.
+- `.vibe/workspace/current-task.md` reflects the completed task.
 - Terminology changes are synchronized.
 - Graphify is refreshed after module or dependency changes.
 - Reports do not contradict canonical truth.

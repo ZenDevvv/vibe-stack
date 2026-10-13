@@ -2,40 +2,91 @@
 "use strict";
 
 const { spawnSync } = require("node:child_process");
-const { cpSync, existsSync } = require("node:fs");
-const { dirname, join } = require("node:path");
+const {
+  appendFileSync,
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+} = require("node:fs");
+const { dirname, join, relative, sep } = require("node:path");
 
-const PKG_ROOT = dirname(__dirname);
+const TEMPLATE = join(dirname(__dirname), "template");
 const TARGET = process.cwd();
-const FORCE = process.argv.includes("--force");
+const args = process.argv.slice(2);
+const FORCE = args.includes("--force");
+const NO_SETUP = args.includes("--no-setup");
+const DRY_RUN = args.includes("--dry-run");
+const setupArgs = args.filter((a) => a !== "--force" && a !== "--no-setup");
 
-const argv = process.argv.slice(2).filter((a) => a !== "--force");
+if (args.includes("-h") || args.includes("--help")) {
+  console.log(
+    "Usage: npx @zendevvv/vibe-stack [options]\n\n" +
+      "Scaffolds .vibe/ into the current directory, then runs .vibe/setup.sh.\n\n" +
+      "  --no-setup   Copy files only; run `bash .vibe/setup.sh` later.\n" +
+      "  --force      Refresh Vibe Stack tooling in an existing scaffold. Your truth,\n" +
+      "               workspace, reports, and app/ files are never overwritten.\n" +
+      "  --dry-run    Show what would be copied and installed, without changing anything.\n\n" +
+      "Other options are passed to setup.sh (see `bash .vibe/setup.sh --help`).",
+  );
+  process.exit(0);
+}
 
-// Scaffolding into a project that was already scaffolded would nest a second copy
-// of .template/ and re-run every installer.
-if (existsSync(join(TARGET, ".template", "setup.sh")) && !FORCE) {
+if (existsSync(join(TARGET, ".vibe", "setup.sh")) && !FORCE && !DRY_RUN) {
   console.error(
-    "This directory already contains a vibe-stack scaffold.\n" +
-      "Run in a fresh directory, delete .template/, or pass --force to reinstall over it.",
+    "This directory already contains a Vibe Stack scaffold (.vibe/).\n" +
+      "Pass --force to refresh the tooling; your truth, workspace, and reports are kept.",
   );
   process.exit(1);
 }
 
-for (const entry of [
-  ".template",
-  ".project-truth",
-  ".agents",
-  ".cursor",
-  "AGENTS.md",
-  "CLAUDE.md",
-  "GEMINI.md",
-  "LICENSE",
-  "README.md",
-]) {
-  const src = join(PKG_ROOT, entry);
-  if (existsSync(src)) {
-    cpSync(src, join(TARGET, entry), { recursive: true });
+// Root files that point agents at .vibe/AGENTS.md. Appended to an existing file
+// rather than replacing it, so a project's own agent instructions survive.
+const SHIMS = new Set(["AGENTS.md", "CLAUDE.md", "GEMINI.md"]);
+// Files the project owns once scaffolded. Created when missing, never overwritten.
+const USER_OWNED = [".vibe/truth/", ".vibe/workspace/", ".vibe/reports/", ".vibe/governance/recommendations.md", "app/", ".gitignore"];
+
+function* walk(dir) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) yield* walk(path);
+    else yield path;
   }
+}
+
+const actions = { created: [], appended: [], refreshed: [], kept: [] };
+
+for (const src of walk(TEMPLATE)) {
+  let rel = relative(TEMPLATE, src).split(sep).join("/");
+  // npm strips .gitignore from published packages, so it ships without the dot.
+  if (rel === "gitignore") rel = ".gitignore";
+  const dest = join(TARGET, rel);
+
+  let action;
+  if (!existsSync(dest)) action = "created";
+  else if (SHIMS.has(rel)) action = readFileSync(dest, "utf8").includes(".vibe/AGENTS.md") ? "kept" : "appended";
+  else if (FORCE && !USER_OWNED.some((p) => rel === p || rel.startsWith(p))) action = "refreshed";
+  else action = "kept";
+
+  actions[action].push(rel);
+  if (DRY_RUN || action === "kept") continue;
+  mkdirSync(dirname(dest), { recursive: true });
+  if (action === "appended") appendFileSync(dest, "\n" + readFileSync(src, "utf8"));
+  else copyFileSync(src, dest);
+}
+
+const verb = DRY_RUN ? "Would have " : "";
+for (const [action, files] of Object.entries(actions)) {
+  if (action === "kept") continue;
+  if (files.length) console.log(`${verb}${action} ${files.length} file(s): ${files.join(", ")}`);
+}
+const keptExisting = actions.kept.filter((f) => !SHIMS.has(f));
+if (keptExisting.length) console.log(`Kept existing: ${keptExisting.join(", ")}`);
+
+if (NO_SETUP) {
+  console.log("Skipped setup. Run `bash .vibe/setup.sh` when ready.");
+  process.exit(0);
 }
 
 // Git for Windows installs bash.exe outside of the default PATH entry, so probe
@@ -67,11 +118,9 @@ if (!bash) {
   process.exit(1);
 }
 
-const result = spawnSync(
-  bash,
-  [join(TARGET, ".template", "setup.sh"), ...argv],
-  { stdio: "inherit", cwd: TARGET },
-);
+// A dry run copies nothing, so run the packaged script rather than the project's copy.
+const setupScript = join(DRY_RUN ? TEMPLATE : TARGET, ".vibe", "setup.sh");
+const result = spawnSync(bash, [setupScript, ...setupArgs], { stdio: "inherit", cwd: TARGET });
 
 if (result.error) {
   console.error(`Failed to start ${bash}: ${result.error.message}`);
