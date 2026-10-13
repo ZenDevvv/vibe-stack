@@ -17,10 +17,10 @@ for file in "${required[@]}"; do
   [[ -s "$file" ]] || { echo "Missing or empty project-truth file: $file" >&2; exit 1; }
 done
 
-if rg -n --glob '*.md' --glob '*.mdc' --glob '*.sh' \
+if grep -rEl --include='*.md' --include='*.mdc' --include='*.sh' \
+    --exclude='validate-project-truth.sh' \
     '(^|[[:space:](`])(PRODUCT\.md|DESIGN\.md|\.project/)' \
-    AGENTS.md CLAUDE.md GEMINI.md .agents/rules .cursor/rules .template README.md \
-    -g '!validate-project-truth.sh' 2>/dev/null; then
+    AGENTS.md CLAUDE.md GEMINI.md .agents/rules .cursor/rules .template README.md; then
   echo 'Found obsolete project-truth authority or path reference.' >&2
   exit 1
 fi
@@ -34,7 +34,7 @@ adopt_guidance_files=(
 )
 
 for file in "${adopt_guidance_files[@]}"; do
-  rg -qi 'adopt' "$file" || { echo "Missing adopt guidance: $file" >&2; exit 1; }
+  grep -qi 'adopt' "$file" || { echo "Missing adopt guidance: $file" >&2; exit 1; }
 done
 
 echo 'Project-truth structure is valid.'
