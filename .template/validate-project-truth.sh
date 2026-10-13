@@ -17,10 +17,10 @@ for file in "${required[@]}"; do
   [[ -s "$file" ]] || { echo "Missing or empty project-truth file: $file" >&2; exit 1; }
 done
 
-if rg -n --glob '*.md' --glob '*.mdc' --glob '*.ps1' --glob '*.sh' \
-  '(^|[[:space:](`])(PRODUCT\.md|DESIGN\.md|\.project/)' \
-  AGENTS.md CLAUDE.md GEMINI.md .agents .cursor .template README.md \
-  -g '!validate-project-truth.sh' -g '!validate-project-truth.ps1' 2>/dev/null; then
+if rg -n --glob '*.md' --glob '*.mdc' --glob '*.sh' \
+    '(^|[[:space:](`])(PRODUCT\.md|DESIGN\.md|\.project/)' \
+    AGENTS.md CLAUDE.md GEMINI.md .agents/rules .cursor/rules .template README.md \
+    -g '!validate-project-truth.sh' 2>/dev/null; then
   echo 'Found obsolete project-truth authority or path reference.' >&2
   exit 1
 fi

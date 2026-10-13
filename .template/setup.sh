@@ -81,12 +81,20 @@ echo -e "\033[1;36m   🚀 Initializing Vibe Coding Supercharged Template      \
 echo -e "\033[1;36m      Stack: Ponytail + Graphify + Agent Skills           \033[0m"
 echo -e "\033[1;36m==========================================================\033[0m\n"
 
+# npm renames .gitignore to .npmignore on install, so it ships as .template/gitignore.
+if [[ ! -f .gitignore && -f .template/gitignore ]]; then
+    cp .template/gitignore .gitignore
+    echo "   Added .gitignore (Node, Python, and Graphify caches)."
+fi
+
 # 1. Check Python & Graphify
 echo -e "\033[1;33m1️⃣ Checking Python & Graphify...\033[0m"
-if command -v python3 &>/dev/null; then
-    echo "Found Python: $(python3 --version)"
+# Windows ships Python as `python`; macOS and Linux use `python3`.
+PY=$(command -v python3 || command -v python || true)
+if [[ -n "$PY" ]]; then
+    echo "Found Python: $("$PY" --version)"
     if pip3 install --quiet --upgrade graphifyy || pip install --quiet --upgrade graphifyy; then
-        if python3 -m graphify install 2>/dev/null || graphify install 2>/dev/null; then
+        if "$PY" -m graphify install 2>/dev/null || graphify install 2>/dev/null; then
             echo "   Graphify installed."
         else
             echo "   Graphify package installed, but skill registration failed." >&2
@@ -102,7 +110,7 @@ fi
 echo -e "\n\033[1;33m2️⃣ Checking Git Repository...\033[0m"
 origin_url=$(git remote get-url origin 2>/dev/null || echo "")
 
-if [[ "$origin_url" == *"model-agnostic-agent-template"* ]]; then
+if [[ "$origin_url" == *"vibe-stack"* ]]; then
     echo -e "\033[1;33m   🔄 Detected clone of template repository ($origin_url).\033[0m"
     RESET_TEMPLATE_GIT=false
 
@@ -138,8 +146,8 @@ elif [ ! -d ".git" ]; then
     echo -e "\033[1;32m   ✅ Initialized fresh Git repository (main).\033[0m"
 fi
 
-if [ -d ".git" ]; then
-    if python3 -m graphify hook install 2>/dev/null || graphify hook install 2>/dev/null; then
+if [[ -n "$PY" && -d ".git" ]]; then
+    if "$PY" -m graphify hook install 2>/dev/null || graphify hook install 2>/dev/null; then
         echo "   Installed Graphify post-commit hook."
     else
         echo "   Graphify hook installation failed; continuing." >&2
